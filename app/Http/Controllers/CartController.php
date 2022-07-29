@@ -30,6 +30,7 @@ class CartController extends Controller
                 $stock->available_stock = $current_stock;
                 $stock->update();
 
+
                 // DB::table('stocks')->where('id', $stock->id)->update(['available_stock' => $current_stock]); 
                 // $message='cart added successfully';
                 return true;
@@ -66,10 +67,10 @@ class CartController extends Controller
     public function deleteAll()
     {
         $ids = Auth::guard('purchasers')->user()->id;
-        $product = Product::get();
-        $cart = Cart::where('purchasers_id', $ids)->get();
-        return view('front.cart', compact(['product', 'cart']));
+        // $product = Product::get();
+        Cart::where('purchasers_id', $ids)->delete();
+        // return view('front.cart', compact(['product', 'cart']));
         // Cart::where('purchasers_id', $ids)->delete();         
-        // return redirect()->back();
+        return redirect()->back();
     }
 }

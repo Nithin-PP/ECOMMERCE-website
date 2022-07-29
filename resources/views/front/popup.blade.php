@@ -114,7 +114,7 @@
 	                                                </div>
 	                                                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
 	                                                <input type="hidden" name="productid" id="productid" value="{{$id}}">
-	                                                <input class="mtext-104 cl3 txt-center num-product" type="number" max="3" id="product" name="product" value="0">
+	                                                <input class="mtext-104 cl3 txt-center num-product" type="number" id="product" name="product" value="0">
 
 	                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 	                                                    <i class="fs-16 zmdi zmdi-plus"></i>
@@ -165,15 +165,18 @@
 	                url: "/addData"
 	                , type: "POST"
 	                , data: {
-	                    _token: $("#csrf").val(), 
-						product: product, 
-						productid: productid
-	                }, 
-					cache: false, 
-					success: function(dataResult) {
+	                    _token: $("#csrf").val()
+	                    , product: product
+	                    , productid: productid
+	                }
+	                , cache: false
+	                , success: function(dataResult) {
 	                    console.log(dataResult);
+	                    if (dataResult = true) {
+	                        $('#cartMsg').html('cart added successfully');
+							$('#product').val(0)
+	                    }
 
-	     
 	                },
 
 	            });

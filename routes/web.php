@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaserController;
@@ -71,10 +72,11 @@ Route::get('categotry-id/{id}', [PurchaserController::class, 'productview']);
 
 Route::get('cart-add/{id}', [StockController::class, 'cart']);
 Route::post('/addData', [CartController::class, 'addCart']);
-Route::get('/view-cart', [CartController::class, 'viewCart']);
+Route::get('/view-cart', [CartController::class, 'viewCart'])->name('viewcart');
 Route::get('delete-cart/{id}', [CartController::class, 'deleteCart']);
 Route::get('clear-all', [CartController::class, 'deleteAll']);
 
-Route::get('handle-payment', [PayPalPaymentController::class,'handlePayment'])->name('make.payment');
-Route::get('cancel-payment', [PayPalPaymentController::class,'paymentCancel'])->name('cancel.payment');
-Route::get('success-payment', [PayPalPaymentController::class,'paymentSuccess'])->name('success.payment');
+// Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
+Route::get('process-transaction/{total}', [PayPalController::class, 'processTransaction'])->name('processTransaction');
+Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');

@@ -21,6 +21,9 @@ class Product extends Model
     {
     return $this->hasOne(Stock::class, 'products_id');
     }
-
+    public function cartData()
+    {
+    return $this->hasMany(Cart::class, 'products_id');
+    }
 
 }

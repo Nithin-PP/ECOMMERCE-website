@@ -195,7 +195,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class
+       
 
     ],
 
@@ -213,7 +213,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
+        
     ])->toArray(),
 
 ];
