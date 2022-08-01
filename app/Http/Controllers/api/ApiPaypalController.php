@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
-class PayPalController extends Controller
+class ApiPaypalController extends Controller
 {
-
-    public function processTransaction($total)
+    public function processTransaction()
     {
-        // $ids = Auth::guard('purchasers')->user()->id;
-        // $cartstore = Cart::with('cartData')->where('purchasers_id', $ids)->get();
-        // $gtotal = 0;
-        // foreach ($cartstore as $value) {
-        //     $qun = $value->quantity;
-        //     $price = $value->cartData->price;
-        //     $total = $qun * $price;
-        //     $gtotal += $total;
+        $ids = auth('sanctum')->user()->id;
+        $cartstore = Cart::with('cartData')->where('purchasers_id', $ids)->get();
+        $gtotal = 0;
+        foreach ($cartstore as $value) {
+            $qun = $value->quantity;
+            $price = $value->cartData->price;
+            $total = $qun * $price;
+            $gtotal += $total;
 
-        // }
-        if($total > 0){
+        }
+        if($gtotal > 0){
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
@@ -86,20 +86,11 @@ class PayPalController extends Controller
         }
     }
 
-    /**
-     * cancel transaction.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function cancelTransaction(Request $request)
     {
         return redirect()
             ->route('viewcart')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');
     }
-    // public function createTransaction(){
-
-
-    //     return redirect()->route('viewcart')->with('success', 'Transaction complete.');
-    // }
 }

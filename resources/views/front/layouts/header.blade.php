@@ -207,20 +207,20 @@
 
 	        <div class="header-cart-content flex-w js-pscroll">
 	            <ul class="header-cart-wrapitem w-full">
-				@foreach($resultss as $value)
+				@foreach($results as $value)
 									
 	                <li class="header-cart-item flex-w flex-t m-b-12">
 	                    <div class="header-cart-item-img">
-	                        <img src="data:image/png/jpg;base64, {{$value->image}}" alt="IMG">
+	                        <img src="data:image/png/jpg;base64, {{$value->cartData->image}}" alt="IMG">
 	                    </div>
 
 	                    <div class="header-cart-item-txt p-t-8">
 	                        <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-	                            {{$value->product}}
+	                            {{$value->cartData->product}}
 	                        </a>
 
 	                        <span class="header-cart-item-info">
-	                            ${{$value->price}}
+	                            ${{$value->cartData->price}}
 	                        </span>
 	                    </div>
 	                </li>

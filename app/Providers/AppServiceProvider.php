@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         
-        $product_stock = DB::table('products')->join('carts', 'products.id', '=', 'carts.products_id')->orderBy('carts.id','desc')->get();
-        view()->share('resultss' , $product_stock);
+        $product_stock = Cart::with('cartData')->orderBy('carts.id', 'desc')->get();
+        view()->share('results' , $product_stock);
 
     }
 }

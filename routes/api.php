@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\api\ApiAuthController;
 use App\Http\Controllers\api\ApiCartController;
+use App\Http\Controllers\api\ApiCategoryController;
+use App\Http\Controllers\api\ApiPaypalController;
+use App\Http\Controllers\api\ApiProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +24,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::post('/login', [ApiAuthController::class, 'login']);
+Route::post('/apiLogin', [ApiAuthController::class, 'login']);
+Route::post('/userDetail', [ApiAuthController::class, 'detail']);
+Route::get('/showData', [ApiCategoryController::class, 'show']);
+Route::get('/showproductdata/{category_id}', [ApiProductController::class, 'show']);
+Route::get('/addtocart', [ApiCartController::class, 'add']);
+Route::get('/paypal', [ApiPaypalController::class, 'processTransaction']);
