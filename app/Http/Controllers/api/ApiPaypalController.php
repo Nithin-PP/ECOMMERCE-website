@@ -10,19 +10,19 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class ApiPaypalController extends Controller
 {
-    public function processTransaction()
+    public function processTransaction($total)
     {
-        $ids = auth('sanctum')->user()->id;
-        $cartstore = Cart::with('cartData')->where('purchasers_id', $ids)->get();
-        $gtotal = 0;
-        foreach ($cartstore as $value) {
-            $qun = $value->quantity;
-            $price = $value->cartData->price;
-            $total = $qun * $price;
-            $gtotal += $total;
+        // $ids = auth('sanctum')->user()->id;
+        // $cartstore = Cart::with('cartData')->where('purchasers_id', $ids)->get();
+        // $gtotal = 0;
+        // foreach ($cartstore as $value) {
+        //     $qun = $value->quantity;
+        //     $price = $value->cartData->price;
+        //     $total = $qun * $price;
+        //     $gtotal += $total;
 
-        }
-        if($gtotal > 0){
+        // }
+        if($total > 0){
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();

@@ -27,5 +27,9 @@ class ApiCartController extends Controller
             $stock->update();
             return response()->json([$cart, $stock], 200);
         }
+    } 
+    public function cartView($purchaser_id){
+        $cart=Cart::where('purchasers_id', $purchaser_id)->get();
+        return response()->json($cart, 200);
     }
 }

@@ -86,11 +86,7 @@ class PayPalController extends Controller
         }
     }
 
-    /**
-     * cancel transaction.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function cancelTransaction(Request $request)
     {
         return redirect()

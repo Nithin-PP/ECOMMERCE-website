@@ -29,4 +29,5 @@ Route::post('/userDetail', [ApiAuthController::class, 'detail']);
 Route::get('/showData', [ApiCategoryController::class, 'show']);
 Route::get('/showproductdata/{category_id}', [ApiProductController::class, 'show']);
 Route::get('/addtocart', [ApiCartController::class, 'add']);
-Route::get('/paypal', [ApiPaypalController::class, 'processTransaction']);
+Route::get('/cart-view/{purchaser_id}', [ApiCartController::class, 'cartView']);
+Route::get('/paypal/{total}', [ApiPaypalController::class, 'processTransaction']);
