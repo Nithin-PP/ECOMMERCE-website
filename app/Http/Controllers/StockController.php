@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class StockController extends Controller
 {
@@ -30,6 +31,8 @@ class StockController extends Controller
 
     public function cart($id)
     {
+
+        $id =Crypt::decrypt($id);
         // $product = Product::find($id);
         $stock = Stock::with('stockData')->where('available_stock', '>=', 0)->where('products_id', $id)->get();
         return view('front.popup', compact(['id', 'stock']));

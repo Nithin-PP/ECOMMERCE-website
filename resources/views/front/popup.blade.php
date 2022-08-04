@@ -113,7 +113,7 @@
 	                                                    <i class="fs-16 zmdi zmdi-minus"></i>
 	                                                </div>
 	                                                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-	                                                <input type="hidden" name="productid" id="productid" value="{{$id}}">
+	                                                <input type="hidden" name="productid" id="productid" value="{{$value->stockData->id}}">
 	                                                <input class="mtext-104 cl3 txt-center num-product" type="number" id="product" name="product" value="0">
 
 	                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
@@ -172,11 +172,19 @@
 	                , cache: false
 	                , success: function(dataResult) {
 	                    console.log(dataResult);
-	                    if (dataResult = true) {
+						 $msg='no cart available';
+						 $message='cart added successfully';
+	                    if(dataResult == $message) {
 	                        $('#cartMsg').html('cart added successfully');
-							$('#product').val(0)
-	                    }
-
+							$('#product').val(0);
+							
+	                    }else{
+							console.log(dataResult);
+						}
+						if(dataResult == $msg){
+							
+							window.location.href = "{{route('purchaser-login')}}"
+						}
 	                },
 
 	            });

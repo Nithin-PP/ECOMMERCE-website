@@ -6,6 +6,7 @@ use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\PayPalPaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaserController;
+use App\Http\Controllers\RazorpayPaymentController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,16 +27,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 //Dashboard login
-Route::group(['middleware' => ['auth']], function () {
-
-Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-
-});
 
 Route::get('/login', [UserController::class, 'index'])->name('login');
 Route::post('log_in', [UserController::class, 'login']);
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
+Route::group(['middleware' => ['auth']], function () {
+
+Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 Route::get('category', [CategoryController::class, 'index']);
 Route::post('category-insert', [CategoryController::class, 'store']);
 Route::get('category-list', [CategoryController::class, 'show']);
@@ -58,25 +57,31 @@ Route::get('category-view', [CategoryController::class, 'categoryView']);
 Route::get('category-listdata', [CategoryController::class, 'getCategory'])->name('categorylist');
 Route::get('product-view', [ProductController::class, 'productView']);
 Route::get('product-listdata', [ProductController::class, 'getProduct'])->name('productlist');
-
+});
 // Route::get('/', [ProductController::class, 'all']);
 
 //frontend login
-
-Route::get('purchase', [ProductController::class, 'home'])->name('home');
-
 Route::get('/purchaser-login', [PurchaserController::class, 'index'])->name('purchaser-login');
 Route::post('purchaser-log-in', [PurchaserController::class, 'login'])->name('purchaser-log-in');
 Route::get('purchaser-logout', [PurchaserController::class, 'logout'])->name('purchaser-logout');
-Route::get('categotry-id/{id}', [PurchaserController::class, 'productview']);
+Route::get('purchase', [ProductController::class, 'home'])->name('home');
 
+
+
+Route::get('categotry-id/{id}', [PurchaserController::class, 'productview']);
 Route::get('cart-add/{id}', [StockController::class, 'cart']);
 Route::post('/addData', [CartController::class, 'addCart']);
 Route::get('/view-cart', [CartController::class, 'viewCart'])->name('viewcart');
 Route::get('delete-cart/{id}', [CartController::class, 'deleteCart']);
 Route::get('clear-all', [CartController::class, 'deleteAll']);
 
+// Paypal payment 
 // Route::get('create-transaction', [PayPalController::class, 'createTransaction'])->name('createTransaction');
 Route::get('process-transaction/{total}', [PayPalController::class, 'processTransaction'])->name('processTransaction');
 Route::get('success-transaction', [PayPalController::class, 'successTransaction'])->name('successTransaction');
 Route::get('cancel-transaction', [PayPalController::class, 'cancelTransaction'])->name('cancelTransaction');
+
+
+//Razorpay payment
+Route::get('razorpay-payment', [RazorpayPaymentController::class, 'index']);
+Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');

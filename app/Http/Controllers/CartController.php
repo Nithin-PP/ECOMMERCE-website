@@ -14,7 +14,7 @@ class CartController extends Controller
 
     public function addCart(Request $request)
     {
-        if(!empty(Auth::guard('purchasers')->user()->id)) {
+        if(Auth::guard('purchasers')->user() != null) {
             $purchasersid = Auth::guard('purchasers')->user()->id;
             $stocks = Stock::where('products_id', $request->get('productid'))->first();
 
@@ -32,22 +32,27 @@ class CartController extends Controller
 
 
                 // DB::table('stocks')->where('id', $stock->id)->update(['available_stock' => $current_stock]); 
-                // $message='cart added successfully';
-                return true;
+                $message='cart added successfully';
+                return $message;
             }
-        } else {
-            $validate = $request->validate([
-                'email' => 'required',
-                'password' => 'required',
-            ]);
-    
-            if (Auth::guard('purchasers')->attempt($validate)) {
-                $request->session()->regenerate();
-                return redirect()->route('');
-            } else {
-                return redirect()->intended('purchaser-login');
-            }
+        } else{
+            $msg='no cart available';
+            return $msg;
         }
+       
+        // else {
+        //     $validate = $request->validate([
+        //         'email' => 'required',
+        //         'password' => 'required',        
+        //     ]);
+    
+        //     if (Auth::guard('purchasers')->attempt($validate)) {
+        //         $request->session()->regenerate();
+        //         return redirect()->route('');
+        //     } else {
+        //         return redirect()->intended('purchaser-login');
+        //     }
+        // }
     }
 
     public function viewCart()
